@@ -14,7 +14,7 @@ class ConstantsTest {
 
     @Test
     fun `test ZIP constants`() {
-        assertEquals(9, DEFAULT_ZLIB_COMPRESSION_LEVEL, "DEFAULT_ZLIB_COMPRESSION_LEVEL should be 9")
+        assertEquals(9, DEFAULT_COMPRESSION_LEVEL, "DEFAULT_ZLIB_COMPRESSION_LEVEL should be 9")
         assertEquals("PK", ZIP_HEADER, "ZIP_HEADER should be 'PK'")
         assertEquals("certificate.json", DEFAULT_ZIP_FILE_NAME, "DEFAULT_ZIP_FILE_NAME should be 'certificate.json'")
     }

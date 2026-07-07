@@ -1,7 +1,7 @@
 package io.mosip.pixelpass
 
+import io.mosip.pixelpass.factory.CompressorFactory
 import nl.minvws.encoding.Base45
-import io.mosip.pixelpass.zlib.ZLib
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -24,7 +24,8 @@ class PixelPassGenerateQRDataTest {
         val encoded = pixelPass.generateQRData(raw)
 
         val decoded = Base45.getDecoder().decode(encoded)
-        val decompressed = ZLib().decode(decoded)
+        val compressor = CompressorFactory.createCompressor()
+        val decompressed = compressor.decode(decoded)
 
         assertEquals(raw, String(decompressed))
     }

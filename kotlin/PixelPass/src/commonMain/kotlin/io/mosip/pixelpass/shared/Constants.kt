@@ -4,7 +4,7 @@ const val QR_SCALE = 15
 const val QR_BORDER = 3
 const val QR_QUALITY = 100
 
-const val DEFAULT_ZLIB_COMPRESSION_LEVEL = 9
+const val DEFAULT_COMPRESSION_LEVEL = 9
 const val ZIP_HEADER = "PK"
 const val DEFAULT_ZIP_FILE_NAME = "certificate.json"
 
@@ -28,6 +28,14 @@ val CLAIM_169_KEY_MAPPER =
     "Binary Image" to 16,
     "Binary Image Format" to 17,
     "Best Quality Fingers" to 18,
+
+      //fields added in 1.2.0 specification
+    "Full Name - Secondary Language" to 19,
+    "Secondary Language" to 20,
+    "Location Code" to 21,
+    "Legal Status" to 22,
+    "Country of Issuance" to 23,
+
     "Right Thumb" to 50,
     "Right Pointer Finger" to 51,
     "Right Middle Finger" to 52,
@@ -94,6 +102,14 @@ val CLAIM_169_REVERSE_KEY_MAPPER: Array<Map<String, String>> =
       "16" to "Binary Image",
       "17" to "Binary Image Format",
       "18" to "Best Quality Fingers",
+
+      //fields added in 1.2.0 specification
+      "19" to "Full Name - Secondary Language",
+      "20" to "Secondary Language",
+      "21" to "Location Code",
+      "22" to "Legal Status",
+      "23" to "Country of Issuance",
+
       "50" to "Right Thumb",
       "51" to "Right Pointer Finger",
       "52" to "Right Middle Finger",

@@ -13,7 +13,7 @@ jacoco {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
 
     androidTarget()
 
@@ -36,6 +36,8 @@ kotlin {
                 implementation(libs.cbor)
                 implementation(libs.ztzip)
                 implementation(libs.org.json)
+                implementation("com.aayushatharva.brotli4j:brotli4j:1.23.0")
+                runtimeOnly("com.aayushatharva.brotli4j:native-windows-x86_64:1.23.0")
             }
         }
         val commonTest by getting {
@@ -72,8 +74,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
