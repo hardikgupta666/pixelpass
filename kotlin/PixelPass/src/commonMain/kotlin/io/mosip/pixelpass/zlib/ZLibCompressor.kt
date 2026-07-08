@@ -1,18 +1,18 @@
 package io.mosip.pixelpass.zlib
 
-import io.mosip.pixelpass.shared.DEFAULT_ZLIB_COMPRESSION_LEVEL
+import io.mosip.pixelpass.compressor.Compressor
 import java.io.ByteArrayOutputStream
 import java.io.OutputStream
 import java.util.zip.Deflater
 import java.util.zip.DeflaterInputStream
 import java.util.zip.InflaterInputStream
 
-open class ZLib {
+open class ZLibCompressor: Compressor {
 
-    fun encode(input: ByteArray, level: Int = DEFAULT_ZLIB_COMPRESSION_LEVEL) =
+    override fun encode(input: ByteArray, level: Int) =
         DeflaterInputStream(input.inputStream(), Deflater(level)).readBytes()
 
-    fun decode(input: ByteArray) =
+    override fun decode(input: ByteArray) =
         InflaterInputStream(input.inputStream()).readBytes().also {
             val inflaterStream = InflaterInputStream(input.inputStream())
             val outputStream = ByteArrayOutputStream(DEFAULT_BUFFER_SIZE)
