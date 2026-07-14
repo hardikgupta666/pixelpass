@@ -35,13 +35,13 @@ class PixelPass {
     return Utils().toJson(cbor)
   }
 
-  fun generateQRCode(data: String, ecc: ECC = ECC.L, header: String = "",compressorType:String="zlib"): String {
+  fun generateQRCode(data: String, ecc: ECC = ECC.L, header: String = "", compressorType: String = "zlib"): String {
     val dataWithHeader = generateQRData(data, header, compressorType)
     val qrcodeImage = convertQRDataIntoBase64(dataWithHeader, ecc)
     return qrcodeImage
   }
 
-  fun detectZlibEncoding(data: ByteArray): Boolean
+  fun isDataZlibEncoded(data: ByteArray): Boolean
   {
     if(data.size < 2)return false
     val cmf = data[0].toInt() and 0xFF
@@ -52,11 +52,12 @@ class PixelPass {
 
   fun decode(data: String): String {
     val decodedBase45Data = Base45.getDecoder().decode(data)
-    val compressor: Compressor = if(detectZlibEncoding(decodedBase45Data)){
-        CompressorFactory.createCompressor("zlib")
-    }else{
-      CompressorFactory.createCompressor("brotli")
-    }
+    val compressor =
+      if (isDataZlibEncoded(decodedBase45Data)) {
+        CompressorFactory.create("zlib")
+      } else {
+        CompressorFactory.create("brotli")
+      }
 
     val decompressedData = compressor.decode(decodedBase45Data)
     return try {
@@ -92,11 +93,11 @@ class PixelPass {
     throw UnknownBinaryFileTypeException()
   }
 
-  fun generateQRData(data: String, header: String = "",compressorType:String="zlib"): String {
+  fun generateQRData(data: String, header: String = "", compressorType: String = "zlib"): String {
     val parsedData: Any?
     var compressedData = byteArrayOf()
     val b45EncodedData: String
-    val compressor = CompressorFactory.createCompressor(compressorType)
+    val compressor = CompressorFactory.create(compressorType)
     try {
       parsedData =
         if (data.startsWith('[') && data.endsWith(']')) {

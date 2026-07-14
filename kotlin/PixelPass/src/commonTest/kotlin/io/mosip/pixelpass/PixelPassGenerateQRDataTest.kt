@@ -24,7 +24,7 @@ class PixelPassGenerateQRDataTest {
         val encoded = pixelPass.generateQRData(raw)
 
         val decoded = Base45.getDecoder().decode(encoded)
-        val compressor = CompressorFactory.createCompressor()
+        val compressor = CompressorFactory.create()
         val decompressed = compressor.decode(decoded)
 
         assertEquals(raw, String(decompressed))

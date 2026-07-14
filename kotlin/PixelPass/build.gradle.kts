@@ -37,7 +37,25 @@ kotlin {
                 implementation(libs.ztzip)
                 implementation(libs.org.json)
                 implementation("com.aayushatharva.brotli4j:brotli4j:1.23.0")
-                runtimeOnly("com.aayushatharva.brotli4j:native-windows-x86_64:1.23.0")
+                // Select ONLY the native runtime for your target platform.
+                // Replace `<version>` with your desired Brotli4j release.
+                // Example: implementation("com.aayushatharva.brotli4j:native-linux-x86_64:1.23.0")
+                // Use the same version for `brotli4j` and all `native-*` dependencies.
+                // Linux:
+                // implementation("com.aayushatharva.brotli4j:native-linux-x86_64:<version>")
+                // implementation("com.aayushatharva.brotli4j:native-linux-aarch64:<version>")
+                // implementation("com.aayushatharva.brotli4j:native-linux-armv7:<version>")
+                // implementation("com.aayushatharva.brotli4j:native-linux-ppc64le:<version>")
+                // implementation("com.aayushatharva.brotli4j:native-linux-s390x:<version>")
+                // implementation("com.aayushatharva.brotli4j:native-linux-riscv64:<version>")
+                //
+                // macOS:
+                // implementation("com.aayushatharva.brotli4j:native-osx-x86_64:<version>")
+                // implementation("com.aayushatharva.brotli4j:native-osx-aarch64:<version>")
+                //
+                // Windows:
+                 implementation("com.aayushatharva.brotli4j:native-windows-x86_64:1.23.0")
+                // implementation("com.aayushatharva.brotli4j:native-windows-aarch64:<version>")
             }
         }
         val commonTest by getting {

@@ -6,11 +6,11 @@ import io.mosip.pixelpass.zlib.ZLibCompressor
 
 
 object CompressorFactory {
-    fun createCompressor(type: String = "zlib"): Compressor{
-        return when(type.lowercase()){
-            "zlib"-> ZLibCompressor()
-            "brotli"-> BrotliCompressor()
-            else -> throw IllegalArgumentException("Unknown compressor")
+    fun create(type: String = "zlib"): Compressor {
+        return when (type.lowercase()) {
+            "zlib" -> ZLibCompressor()
+            "brotli" -> BrotliCompressor()
+            else -> throw IllegalArgumentException("Unsupported compressor")
         }
     }
 }

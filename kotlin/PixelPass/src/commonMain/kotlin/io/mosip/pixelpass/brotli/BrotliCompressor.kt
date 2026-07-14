@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream
     init {
         Brotli4jLoader.ensureAvailability()
     }
+
     override fun encode(input: ByteArray, qualityLevel: Int): ByteArray {
         val outputStream = ByteArrayOutputStream()
         val params = Encoder.Parameters().setQuality(qualityLevel)
@@ -20,6 +21,7 @@ import java.io.ByteArrayOutputStream
 
         return outputStream.toByteArray()
     }
+
     override  fun decode(input: ByteArray): ByteArray{
         val inputStream = input.inputStream()
         BrotliInputStream(inputStream).use {
