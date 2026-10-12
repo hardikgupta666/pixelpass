@@ -10,6 +10,7 @@ import io.mosip.pixelpass.factory.CompressorFactory
 import io.mosip.pixelpass.shared.CLAIM_169_KEY_MAPPER
 import io.mosip.pixelpass.shared.CLAIM_169_REVERSE_KEY_MAPPER
 import io.mosip.pixelpass.shared.CLAIM_169_VALUE_MAPPER
+import io.mosip.pixelpass.shared.CompressionType
 import io.mosip.pixelpass.shared.DEFAULT_ZIP_FILE_NAME
 import io.mosip.pixelpass.shared.ZIP_HEADER
 import io.mosip.pixelpass.shared.decodeHex
@@ -35,6 +36,7 @@ class PixelPass {
     return Utils().toJson(cbor)
   }
 
+  @JvmOverloads
   fun generateQRCode(data: String, ecc: ECC = ECC.L, header: String = "", compressorType: String = "zlib"): String {
     val dataWithHeader = generateQRData(data, header, compressorType)
     val qrcodeImage = convertQRDataIntoBase64(dataWithHeader, ecc)
@@ -54,9 +56,9 @@ class PixelPass {
     val decodedBase45Data = Base45.getDecoder().decode(data)
     val compressor =
       if (isDataZlibEncoded(decodedBase45Data)) {
-        CompressorFactory.create("zlib")
+        CompressorFactory.create(CompressionType.ZLIB)
       } else {
-        CompressorFactory.create("brotli")
+        CompressorFactory.create(CompressionType.BROTLI)
       }
 
     val decompressedData = compressor.decode(decodedBase45Data)
@@ -92,12 +94,12 @@ class PixelPass {
     }
     throw UnknownBinaryFileTypeException()
   }
-
+  @JvmOverloads
   fun generateQRData(data: String, header: String = "", compressorType: String = "zlib"): String {
     val parsedData: Any?
     var compressedData = byteArrayOf()
     val b45EncodedData: String
-    val compressor = CompressorFactory.create(compressorType)
+    val compressor = CompressorFactory.create(CompressionType.fromString(compressorType))
     try {
       parsedData =
         if (data.startsWith('[') && data.endsWith(']')) {

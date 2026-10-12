@@ -7,7 +7,7 @@ import java.util.zip.Deflater
 import java.util.zip.DeflaterInputStream
 import java.util.zip.InflaterInputStream
 
-open class ZLibCompressor: Compressor {
+internal class ZLibCompressor: Compressor {
 
     override fun encode(input: ByteArray, level: Int) =
         DeflaterInputStream(input.inputStream(), Deflater(level)).readBytes()
